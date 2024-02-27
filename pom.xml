@@ -1,10 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.springframework.ai</groupId>
 	<artifactId>spring-ai</artifactId>
-	<version>0.8.1-SNAPSHOT</version>
+	<version>0.8.1-THINGERSOFT</version>
 
 	<packaging>pom</packaging>
 	<url>https://github.com/spring-projects/spring-ai</url>
@@ -39,7 +40,8 @@
 		<module>spring-ai-spring-boot-starters/spring-ai-starter-redis</module>
 		<module>spring-ai-spring-boot-starters/spring-ai-starter-stability-ai</module>
 		<module>spring-ai-spring-boot-starters/spring-ai-starter-neo4j-store</module>
-		<module>spring-ai-spring-boot-starters/spring-ai-starter-postgresml-embedding</module>
+		<module>
+			spring-ai-spring-boot-starters/spring-ai-starter-postgresml-embedding</module>
 		<module>spring-ai-docs</module>
 		<module>vector-stores/spring-ai-pgvector-store</module>
 		<module>vector-stores/spring-ai-milvus-store</module>
@@ -73,13 +75,11 @@
 		<url>https://github.com/spring-projects/spring-ai/actions</url>
 	</ciManagement>
 	<distributionManagement>
-		<snapshotRepository>
-			<id>spring-snapshots</id>
-			<url>https://repo.spring.io/libs-snapshot-local</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</snapshotRepository>
+		<repository>
+			<id>thingersoft.forks.repo</id>
+			<name>Thingersoft forked projects repository</name>
+			<url>${thingersoft.repo_url}</url>
+		</repository>
 	</distributionManagement>
 	<licenses>
 		<license>
@@ -124,7 +124,8 @@
 
 		<!-- documentation dependencies -->
 		<io.spring.maven.antora-version>0.0.4</io.spring.maven.antora-version>
-		<asciidoctorj-pdf.version>1.6.2</asciidoctorj-pdf.version>		<!-- FIXME build failure with version 2.3.9 -->
+		<asciidoctorj-pdf.version>1.6.2</asciidoctorj-pdf.version>		<!-- FIXME
+		build failure with version 2.3.9 -->
 		<asciidoctorj-epub.version>1.5.1</asciidoctorj-epub.version>
 		<spring-asciidoctor-backends.version>0.0.6</spring-asciidoctor-backends.version>
 
@@ -144,6 +145,8 @@
 		<maven-project-info-reports-plugin.version>3.4.5</maven-project-info-reports-plugin.version>
 		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
 		<spring-javaformat-maven-plugin.version>0.0.39</spring-javaformat-maven-plugin.version>
+
+		<thingersoft.repo_url>file:///work/thingersoft_maven_repo</thingersoft.repo_url>
 
 	</properties>
 
@@ -246,6 +249,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>${maven-deploy-plugin.version}</version>
+				<configuration>
+					<altDeploymentRepository>
+						internal.repo::${thingersoft.repo_url}</altDeploymentRepository>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -264,7 +271,8 @@
 						<version>${maven-javadoc-plugin.version}</version>
 						<configuration>
 							<excludePackageNames>org.springframework.ai.sample.*</excludePackageNames>
-							<overview>${project.basedir}/spring-ai-docs/src/main/javadoc/overview.html</overview>
+							<overview>
+								${project.basedir}/spring-ai-docs/src/main/javadoc/overview.html</overview>
 							<detectJavaApiLink>false</detectJavaApiLink>
 							<doclint>all,-missing</doclint>
 							<quiet>true</quiet>
